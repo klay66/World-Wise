@@ -3,7 +3,10 @@ import styles from "./CountryList.module.css"
 import Spinner from './Spinner';
 import Message from './Message';
 import City from "./City";
-export default function CountrList({ cities, isLoading }) {
+import { useCities } from "../contexts/CitiesContext";
+export default function CountrList() {
+    const { cities, isLoading } = useCities()
+
     if (isLoading) return <Spinner />;
 
     if (!cities.length) return <Message message='Add your first city' />
@@ -16,7 +19,7 @@ export default function CountrList({ cities, isLoading }) {
 
     return (
         <ul className={styles.countrList}>
-            {countries.map((country) => (<CountryItem country={country} key={country.id} />))}
+            {countries.map((country) => (<CountryItem country={country} key={country.country} />))}
         </ul>
     )
 }
